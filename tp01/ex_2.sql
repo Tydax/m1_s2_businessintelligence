@@ -29,18 +29,42 @@ FROM    ventes v NATURAL JOIN temps
 WHERE   annee IN(2009, 2010)
 GROUP BY CUBE(annee, cl_r, category);
 
--- Question 3 TO FINISH
-SELECT  RANK() OVER (PARTITION BY annee, category ORDER BY nb DESC) AS rang,
-        annee,
+-- Question 3
+SELECT  annee,
         category,
-        pname, nb
+        pname
 FROM (
-    SELECT SUM(qte) AS nb,
-            annee,
+    SELECT  annee,
             category,
-            pname
-    FROM   ventes v NATURAL JOIN temps
+            pname,
+            RANK() OVER (PARTITION BY annee, category ORDER BY SUM(qte * pu) DESC) AS rang
+    FROM ventes v   NATURAL JOIN temps
                     NATURAL JOIN produits
                     INNER JOIN clients c ON (c.cl_id = v.cid)
     GROUP BY annee, category, pname
-) q;
+)
+WHERE rang = 1;
+
+-- Question 4
+SELECT  annee,
+        category,
+        SUM(qte * pu) AS ca_total
+FROM ventes v   NATURAL JOIN temps
+                NATURAL JOIN produits
+                INNER JOIN clients c ON (c.cl_id = v.cid)
+HAVING GROUPING_ID(annee, category) < 2
+GROUP BY CUBE (annee, category);
+
+/* Il est possible d'utiliser juste un ROLLUP, mais les lignes d'agrégation pour chaque année
+ne s'affichent pas en premier. */
+
+-- Question 5
+SELECT  annee,
+        mois,
+        SUM(qte * pu) AS ca_total,
+        pname
+FROM ventes v   NATURAL JOIN temps
+                NATURAL JOIN produits
+                INNER JOIN clients c ON (c.cl_id = v.cid)
+WHERE category = 'Condiments'
+GROUP BY annee, mois, pname;
