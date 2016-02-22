@@ -1,0 +1,41 @@
+name:                m1-bi-tp03
+version:             0.1.0.0
+synopsis:            Initial project template from stack
+description:         Please see README.md
+homepage:            http://github.com/Tydax/m1-bi-tp03#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Armand BOUR
+maintainer:          tydax@protonmail.ch
+copyright:           2016 Author Here
+category:            Web
+build-type:          Simple
+-- extra-source-files:
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Lib
+  build-depends:       base >= 4.7 && < 5
+  default-language:    Haskell2010
+
+executable m1-bi-tp03-exe
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , m1-bi-tp03
+  default-language:    Haskell2010
+
+test-suite m1-bi-tp03-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                     , m1-bi-tp03
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/Tydax/m1-bi-tp03
