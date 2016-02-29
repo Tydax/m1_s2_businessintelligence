@@ -20,12 +20,14 @@ data Cluster = Cluster [Data] Centre
 deriving (Show)
 
 -- |The 'Centre' type is an alias to describe the centre of a cluster.
-type Centre = Data
+type Centre = [Double]
 
 -- |The 'Data' type describes a type used to represent the data to clusterify.
 data Data = Data {
-    values :: [Double]
+    changed :: Boolean
+  , cluster :: Int
   , distanceCentre :: Double
+  , values :: [Double]
   } deriving (Show)
 
 -- |The 'Distance' type describes a function taking two sets of values and computing a distance.
