@@ -16,7 +16,7 @@ module Types (
 ) where
 
 -- |The 'Cluster' type describes a cluster of data which distance is short.
-data Cluster = Cluster [Data] Centre
+data Cluster = Cluster [Data] Centre Int -- Int is used as an index
 deriving (Show)
 
 -- |The 'Centre' type is an alias to describe the centre of a cluster.
@@ -31,4 +31,4 @@ data Data = Data {
   } deriving (Show)
 
 -- |The 'Distance' type describes a function taking two sets of values and computing a distance.
-type Distance = Data -> Data -> Double
+type Distance = Data -> Data -> Double -> Double -> Double

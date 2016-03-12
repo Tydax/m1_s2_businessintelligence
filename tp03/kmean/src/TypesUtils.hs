@@ -18,10 +18,13 @@ import Types
 gatherData :: [Cluster] -> [Data]
 gatherData [] = []
 gatherData (c:cs) =
-  let Cluster ds _ = c
+  let Cluster ds _ _ = c
   in ds ++ gatherData cs
 
--- |The 'gatherValues' function computes the centre of a list of data objects.
-gatherValues :: [Data] -> [Double]
-gatherValues [] = []
+-- |The 'gatherValues' function gathers every values object.
+gatherValues :: [Data] -> [[Double]]
 gatherValues ds = map values ds
+
+-- |The 'mean' function computes the arithmetic mean of all the specified values.
+mean :: [Data] -> Double
+mean ds = sum ds / (length ds)
