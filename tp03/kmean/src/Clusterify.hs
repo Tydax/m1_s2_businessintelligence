@@ -1,10 +1,5 @@
 {- |
   Module      :  $Header$
-  Description :  
-  Copyright   :  None
-  License     :  None
-  Maintainer  :  tydax@protonmail.ch
-  Stability   :  unstable
   The $Header$ module describes all the types used in the application. Many of the types
   are here just to make the code easier to understand and read.
 -}
@@ -70,7 +65,7 @@ distance v1s v2s maxs mins =
     den = zipWith (-) maxs mins -- max - min
     squares = zipwith (\x y -> (x / y)^2) num den -- div ^ 2
   in
-    sqrt $ sum squares
+    sqrt . sum squares
 
 -- |The 'distanceFromCluster' computes the distance between the data object and the centre of the cluster.
 distanceFromCluster :: Data -> Cluster -> (Double, Cluster)

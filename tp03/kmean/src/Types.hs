@@ -10,21 +10,20 @@
 -}
 module Types (
   Centre,
-  Cluster,
-  Data,
+  Cluster(Cluster),
+  Data(Data, changed, cluster, distanceCentre, values),
   Distance
 ) where
 
 -- |The 'Cluster' type describes a cluster of data which distance is short.
-data Cluster = Cluster [Data] Centre Int -- Int is used as an index
-deriving (Show)
+data Cluster = Cluster [Data] Centre Int deriving (Show) -- Int is used as an index
 
 -- |The 'Centre' type is an alias to describe the centre of a cluster.
 type Centre = [Double]
 
 -- |The 'Data' type describes a type used to represent the data to clusterify.
 data Data = Data {
-    changed :: Boolean
+    changed :: Bool
   , cluster :: Int
   , distanceCentre :: Double
   , values :: [Double]
